@@ -1,6 +1,5 @@
 using challenge.ibge.authentication;
 using challenge.ibge.authentication.Dtos;
-using challenge.ibge.infra.data.Dtos;
 
 namespace challenge.ibge.infra.data.Entities;
 
@@ -33,12 +32,8 @@ public class User : BaseEntity
         Name = userDto.Name;
         Email = userDto.Email;
         Password = userDto.Password;
+        Role = userDto.Role;
         
         UpdatedAt = CreatedAt = DateTimeOffset.UtcNow;
-    }
-
-    public void UpdateRole(RoleEnum role)
-    {
-        Role = role;
     }
 }

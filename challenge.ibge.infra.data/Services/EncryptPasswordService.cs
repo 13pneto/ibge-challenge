@@ -1,9 +1,8 @@
-using System.Security.Cryptography;
 using challenge.ibge.infra.data.Services.Interfaces;
 
 namespace challenge.ibge.infra.data.Services;
 
-public class EncryptService : IEncryptService
+public class EncryptPasswordService : IEncryptPasswordService
 {
     public string Encrypt(string password)
     {

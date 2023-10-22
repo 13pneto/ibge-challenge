@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge.ibge.infra.data",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge.ibge.authentication", "challenge.ibge.authentication\challenge.ibge.authentication.csproj", "{E3EF9C8C-C86B-48C6-84DF-F76DE6FE339A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - tests", "3 - tests", "{76455D74-7823-47F0-8E09-459B967085BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{42F0C52B-6C2B-4D2D-B795-A34773F99CEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{E3EF9C8C-C86B-48C6-84DF-F76DE6FE339A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3EF9C8C-C86B-48C6-84DF-F76DE6FE339A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3EF9C8C-C86B-48C6-84DF-F76DE6FE339A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F0C52B-6C2B-4D2D-B795-A34773F99CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F0C52B-6C2B-4D2D-B795-A34773F99CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F0C52B-6C2B-4D2D-B795-A34773F99CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F0C52B-6C2B-4D2D-B795-A34773F99CEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +51,7 @@ Global
 		{4311EEF6-A094-465C-9C29-D235718038DD} = {8AC3CE2C-0E7A-4690-BFA0-8A7FACE220DF}
 		{B9A0B9B5-CD56-4BC3-A782-682BB89F679E} = {4311EEF6-A094-465C-9C29-D235718038DD}
 		{E3EF9C8C-C86B-48C6-84DF-F76DE6FE339A} = {078FA2C4-1903-4FB2-BBC9-86745E9CDC6E}
+		{76455D74-7823-47F0-8E09-459B967085BB} = {8AC3CE2C-0E7A-4690-BFA0-8A7FACE220DF}
+		{42F0C52B-6C2B-4D2D-B795-A34773F99CEC} = {76455D74-7823-47F0-8E09-459B967085BB}
 	EndGlobalSection
 EndGlobal

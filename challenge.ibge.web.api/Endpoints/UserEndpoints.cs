@@ -23,5 +23,35 @@ public static class UserEndpoints
             .Produces(200, typeof(CreateUserDto))
             .Produces(400)
             .Produces(500, typeof(InternalErrorException));
+        
+        endpoints.MapPut("/v1/users{id:int}", async ([FromServices] IUserService userService,
+                int id, UserDto userDto) =>
+            {
+                await userService.UpdateAsync(id, userDto);
+                return Results.Ok();
+            })
+            .WithMetadata(new SwaggerOperationAttribute()
+            {
+                Summary = "Update an user",
+                Description = "Use this route to update an user"
+            })
+            .Produces(200, typeof(CreateUserDto))
+            .Produces(400)
+            .Produces(500, typeof(InternalErrorException));
+        
+        endpoints.MapDelete("/v1/users{id:int}", async ([FromServices] IUserService userService,
+                int id) =>
+            {
+                await userService.DeleteAsync(id);
+                return Results.Ok();
+            })
+            .WithMetadata(new SwaggerOperationAttribute()
+            {
+                Summary = "Delete an user",
+                Description = "Use this route to delete an user"
+            })
+            .Produces(200)
+            .Produces(400)
+            .Produces(500, typeof(InternalErrorException));
     }
 }                         

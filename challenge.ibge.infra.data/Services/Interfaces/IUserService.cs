@@ -1,5 +1,4 @@
 using challenge.ibge.authentication.Dtos;
-using challenge.ibge.infra.data.Dtos;
 
 namespace challenge.ibge.infra.data.Services.Interfaces;
 

@@ -19,49 +19,46 @@ public class LocalityService : ILocalityService
     private readonly ILogger<LocalityService> _logger;
     private readonly ILocalityValidationService _localityValidationService;
 
-    public LocalityService(MySqlDbContext mySqlDbContext, ILogger<LocalityService> logger, ILocalityValidationService localityValidationService)
+    public LocalityService(MySqlDbContext mySqlDbContext, ILogger<LocalityService> logger,
+        ILocalityValidationService localityValidationService)
     {
         _mySqlDbContext = mySqlDbContext;
         _logger = logger;
         _localityValidationService = localityValidationService;
-        _dbSet = mySqlDbContext.Ibges;
+        _dbSet = mySqlDbContext.Localities;
     }
 
     public async Task<LocalityDto> CreateAsync(LocalityDto localityDto)
     {
-        var ibge = new Locality(localityDto);
+        var locality = new Locality(localityDto);
 
-        await InitDbOperation(() =>
-        {
-            _dbSet.AddAsync(ibge);
-        });
+        await _dbSet.AddAsync(locality);
+        await _mySqlDbContext.SaveChangesAsync();
 
-        return ibge.ToDto();
+        return locality.ToDto();
     }
 
     public async Task<LocalityDto> UpdateAsync(int id, LocalityDto localityDto)
     {
-        var dbIbge = _dbSet.Single(ibge => ibge.Id == id);
+        var dbIbge = _dbSet.Single(locality => locality.Id == id);
         
-        await InitDbOperation(() =>
-        {
-            dbIbge.Update(localityDto);
-            _dbSet.Update(dbIbge);
-        });
-
+        _dbSet.Update(dbIbge);
+        await _mySqlDbContext.SaveChangesAsync();
+        
         return dbIbge.ToDto();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var dbIbge = _mySqlDbContext.Ibges.Single(ibge => ibge.Id == id);
+        var dbIbge = _mySqlDbContext.Localities.Single(locality => locality.Id == id);
 
-        await InitDbOperation(() => { _dbSet.Remove(dbIbge); });
+        _dbSet.Remove(dbIbge);
+        await _mySqlDbContext.SaveChangesAsync();
     }
 
     public async Task<LocalityDto?> GetByIdAsync(int id)
     {
-        var dbIbge = await _dbSet.FirstOrDefaultAsync(ibge => ibge.Id == id);
+        var dbIbge = await _dbSet.FirstOrDefaultAsync(locality => locality.Id == id);
         return dbIbge?.ToDto();
     }
 
@@ -75,7 +72,9 @@ public class LocalityService : ILocalityService
                  x.UF.Contains(filter)))
             .ToListAsync();
 
-        return dbIbges.Select(dbIbge => dbIbge.ToDto()).ToList();
+        return dbIbges
+            .Select(dbIbge => dbIbge.ToDto())
+            .ToList();
     }
 
     public async Task<LocalityImportResult> ImportAsync(IFormFile file)
@@ -100,12 +99,10 @@ public class LocalityService : ILocalityService
         var workbook = new HSSFWorkbook(stream);
         var sheet = workbook.GetSheetAt(0);
 
-        int x = 0;
         foreach (IRow row in sheet)
         {
-            x += 1;
             var cols = row.Cells;
-            
+
             if (row.RowNum is 0) //First line (headers)        
             {
                 continue;
@@ -115,9 +112,10 @@ public class LocalityService : ILocalityService
             {
                 localityFailedToImportDtos.Add(new LocalityValidationResultDto()
                 {
+                    IsValid = false,
                     Row = row.RowNum
                 });
-                
+
                 continue;
             }
 
@@ -139,7 +137,7 @@ public class LocalityService : ILocalityService
             };
 
             var localityValidationResultDto = await _localityValidationService.ValidateCanImport(localityDto);
-            
+
             if (localityValidationResultDto.IsValid)
             {
                 localityDtos.Add(localityValidationResultDto.Locality);
@@ -157,29 +155,34 @@ public class LocalityService : ILocalityService
         var dbIbgeCodes = dbIbges.Select(x => x.IbgeCode);
         var dtoIbgeCodes = localityDtos.Select(x => x.Code);
         var ibgeCodesToRemove = dbIbgeCodes.Intersect(dtoIbgeCodes).ToList();
-        var ignoredCount = ibgeCodesToRemove.Count(); 
-        
-        localityDtos.RemoveAll(ibgeDto => ibgeCodesToRemove.Any(code => ibgeDto.Code == code)); // Remove existents ibges in database
-        _logger.LogInformation("Total IBGE's ignored because already exists in database: {TotalIgnoredIbgesThatAlreadyExistsInDb}", ignoredCount);
-            
+        var ignoredCount = ibgeCodesToRemove.Count();
+
+        localityDtos.RemoveAll(ibgeDto =>
+            ibgeCodesToRemove.Any(code => ibgeDto.Code == code)); // Remove existents ibges in database
+        _logger.LogInformation(
+            "Total IBGE's ignored because already exists in database: {TotalIgnoredIbgesThatAlreadyExistsInDb}",
+            ignoredCount);
+
         var ibges = localityDtos.Select(ibgeDto => new Locality(ibgeDto)).ToList();
         _logger.LogInformation("Total IBGE's will be created: {TotalIbgesThatWillBeCreated}", ibges.Count);
-        
+
         var sw = new Stopwatch();
         sw.Start();
         await _mySqlDbContext.BulkInsertAsync(ibges);
         sw.Stop();
-            
-        _logger.LogInformation("Total localities failed to import: {TotalLocalityFailCount}", localityFailedToImportDtos.Count);
-        _logger.LogInformation("Elapsed time to import {ImportedCount}: {ImportElapsedTime}",localityDtos.Count ,sw.Elapsed);
-            
+
+        _logger.LogInformation("Total localities failed to import: {TotalLocalityFailCount}",
+            localityFailedToImportDtos.Count);
+        _logger.LogInformation("Elapsed time to import {ImportedCount}: {ImportElapsedTime}", localityDtos.Count,
+            sw.Elapsed);
+
         return new LocalityImportResult
         {
             Elapsed = sw.Elapsed,
             CreatedCount = ibges.Count,
             IgnoredCount = ignoredCount < 0 ? 0 : ignoredCount,
             FailedCount = localityFailedToImportDtos.Count,
-            FailedLocalities = localityFailedToImportDtos 
+            FailedLocalities = localityFailedToImportDtos
         };
     }
 

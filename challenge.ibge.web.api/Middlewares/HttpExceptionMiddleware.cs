@@ -14,6 +14,10 @@ public class HttpExceptionMiddleware
         _logger = logger;
     }
 
+    /// <summary>
+    /// Middleware used to intercept requests and return an InternalErrorException with the exception message
+    /// </summary>
+    /// <param name="context"></param>
     public async Task InvokeAsync(HttpContext context)
     {
         try

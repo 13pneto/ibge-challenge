@@ -6,7 +6,7 @@ namespace challenge.ibge.infra.data;
 
 public class MySqlDbContext : DbContext
 {
-    public DbSet<Locality> Ibges { get; set; }
+    public DbSet<Locality> Localities { get; set; }
     public DbSet<User> Users { get; set; }
 
     public MySqlDbContext()

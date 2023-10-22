@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace challenge.ibge.infra.data.Extensions;
 
+/// <summary>
+/// Extension used to EF map all properties of entity with IsRequired (not nullable).
+/// </summary>
 public static class EntityTypeBuilderExtensions
 {
     public static void ApplyDefaultEntityContextConfig<T>(this EntityTypeBuilder<T> entity) where T : BaseEntity

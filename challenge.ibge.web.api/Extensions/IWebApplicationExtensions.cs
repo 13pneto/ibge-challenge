@@ -1,4 +1,6 @@
-namespace challenge.ibge.web.api.Endpoints;
+using challenge.ibge.web.api.Endpoints;
+
+namespace challenge.ibge.web.api.Extensions;
 
 public static class IWebApplicationExtensions
 {

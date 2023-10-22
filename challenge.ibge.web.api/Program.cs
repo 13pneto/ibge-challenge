@@ -1,7 +1,9 @@
 using System.Reflection;
 using System.Text;
 using challenge.ibge.infra.data;
+using challenge.ibge.infra.data.Extensions;
 using challenge.ibge.web.api.Endpoints;
+using challenge.ibge.web.api.Extensions;
 using challenge.ibge.web.api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

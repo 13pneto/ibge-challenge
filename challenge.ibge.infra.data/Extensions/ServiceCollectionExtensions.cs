@@ -1,10 +1,12 @@
 ﻿using challenge.ibge.infra.data.Services;
 using challenge.ibge.infra.data.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using LocalityService = challenge.ibge.infra.data.Services.LocalityService;
 
-namespace challenge.ibge.infra.data;
+namespace challenge.ibge.infra.data.Extensions;
 
+/// <summary>
+/// Extension used to register services
+/// </summary>
 public static class ServiceCollectionExtensions
 {
     public static void RegisterServices(this IServiceCollection services)
@@ -12,7 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ILocalityService, LocalityService>();
         services.AddScoped<ILocalityValidationService, LocalityValidationService>();
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IEncryptService, EncryptService>();
+        services.AddScoped<IEncryptPasswordService, EncryptPasswordService>();
 
         services.AddDbContext<MySqlDbContext>();
     }
