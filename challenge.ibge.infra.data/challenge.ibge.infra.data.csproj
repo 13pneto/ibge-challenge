@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>challenge.ibge.infra.data</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BCrypt.Net" Version="0.1.0" />
+        <PackageReference Include="EFCore.BulkExtensions" Version="7.1.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.12"/>
+        <PackageReference Include="NPOI" Version="2.6.2" />
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Microsoft.AspNetCore.Http.Features">
+            <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.11\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\challenge.ibge.authentication\challenge.ibge.authentication.csproj" />
+    </ItemGroup>
+
+
+
+</Project>
