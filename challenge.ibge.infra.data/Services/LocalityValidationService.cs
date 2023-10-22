@@ -8,9 +8,9 @@ public class LocalityValidationService : ILocalityValidationService
 {
     public async Task<LocalityValidationResultDto> ValidateCanImport(LocalityDto localityDto)
     {
-        var isValidUf = localityDto.UF.Length == 2;
-        var isValidCity = Regex.IsMatch(localityDto.City, "^([-\"' \\p{L}]+?)+$");
-        var isValidIbgeCode = Regex.IsMatch(localityDto.Code.ToString(), "^[0-9]{7}$");
+        var isValidUf = localityDto.UF?.Length == 2;
+        var isValidCity = Regex.IsMatch(localityDto.City ?? "", "^(?=\\p{L}{3,})([-\\\"' \\p{L}]+?)+$");
+        var isValidIbgeCode = Regex.IsMatch(localityDto.IbgeCode.ToString(), "^[0-9]{7}$");
 
         LocalityValidationResultDto localityValidationResultDto = new()
         {
@@ -28,7 +28,7 @@ public class LocalityValidationService : ILocalityValidationService
         }
         if (isValidIbgeCode == false)
         {
-            localityValidationResultDto.InvalidFields.Add(nameof(localityDto.Code));            
+            localityValidationResultDto.InvalidFields.Add(nameof(localityDto.IbgeCode));            
         }
 
         localityValidationResultDto.IsValid =

@@ -10,7 +10,7 @@ public static class IbgeConverter
         return new LocalityDto()
         {
             Id = locality.Id,
-            Code = locality.IbgeCode,
+            IbgeCode = locality.IbgeCode,
             City = locality.City,
             UF = locality.UF
         };

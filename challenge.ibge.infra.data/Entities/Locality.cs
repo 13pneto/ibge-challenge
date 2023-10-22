@@ -15,7 +15,7 @@ public class Locality : BaseEntity
 
     public Locality(LocalityDto localityDto)
     {
-        IbgeCode = localityDto.Code;
+        IbgeCode = localityDto.IbgeCode;
         City = localityDto.City;
         UF = localityDto.UF;
         
@@ -24,7 +24,7 @@ public class Locality : BaseEntity
 
     public void Update(LocalityDto localityDto)
     {
-        IbgeCode = localityDto.Code;
+        IbgeCode = localityDto.IbgeCode;
         City = localityDto.City;
         UF = localityDto.UF;
         

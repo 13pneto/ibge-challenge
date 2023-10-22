@@ -10,11 +10,12 @@ public static class UserEndpoints
 {
     public static void MapUserEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost($"/v1/users", async ([FromServices] IUserService userService, CreateUserDto userDto) =>
+        endpoints.MapPost($"/v1/users/register", async ([FromServices] IUserService userService, CreateUserDto userDto) =>
             {
                 await userService.CreateAsync(userDto);
                 return Results.Ok();
             })
+            .AllowAnonymous()
             .WithMetadata(new SwaggerOperationAttribute()
             {
                 Summary = "Create a new user entry",

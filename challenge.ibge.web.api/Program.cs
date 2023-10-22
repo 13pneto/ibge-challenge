@@ -1,8 +1,7 @@
-using System.Reflection;
 using System.Text;
-using challenge.ibge.infra.data;
+using challenge.ibge.authentication.Services;
+using challenge.ibge.authentication.Services.Interfaces;
 using challenge.ibge.infra.data.Extensions;
-using challenge.ibge.web.api.Endpoints;
 using challenge.ibge.web.api.Extensions;
 using challenge.ibge.web.api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -49,6 +48,7 @@ builder.Services.AddSwaggerGen(opt =>
     opt.AddSecurityRequirement(securityRequirement);
 });
 
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddAuthentication(x =>
     {
         x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

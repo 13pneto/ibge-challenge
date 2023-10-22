@@ -9,7 +9,6 @@ public class User : BaseEntity
     public string Email { get; private set; }
     public string Password { get; private set; }
     public RoleEnum Role { get; private set; }
-    public string Salt { get; private set; }
 
     private User()
     {
@@ -22,8 +21,7 @@ public class User : BaseEntity
         Role = RoleEnum.User;
         
         Password = userDto.Password;
-        Salt = "salt";
-        
+
         CreatedAt = DateTimeOffset.UtcNow;
     }
 

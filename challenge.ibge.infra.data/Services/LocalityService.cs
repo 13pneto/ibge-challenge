@@ -3,6 +3,7 @@ using challenge.ibge.infra.data.Converters;
 using challenge.ibge.infra.data.Dtos;
 using challenge.ibge.infra.data.Entities;
 using challenge.ibge.infra.data.Services.Interfaces;
+using challenge.ibge.infra.data.UnitOfWork.Interfaces;
 using EFCore.BulkExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -14,66 +15,64 @@ namespace challenge.ibge.infra.data.Services;
 
 public class LocalityService : ILocalityService
 {
-    private readonly MySqlDbContext _mySqlDbContext;
-    private readonly DbSet<Locality> _dbSet;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<LocalityService> _logger;
     private readonly ILocalityValidationService _localityValidationService;
 
-    public LocalityService(MySqlDbContext mySqlDbContext, ILogger<LocalityService> logger,
+    public LocalityService(IUnitOfWork unitOfWork, ILogger<LocalityService> logger,
         ILocalityValidationService localityValidationService)
     {
-        _mySqlDbContext = mySqlDbContext;
+        _unitOfWork = unitOfWork;
         _logger = logger;
         _localityValidationService = localityValidationService;
-        _dbSet = mySqlDbContext.Localities;
     }
 
     public async Task<LocalityDto> CreateAsync(LocalityDto localityDto)
     {
         var locality = new Locality(localityDto);
 
-        await _dbSet.AddAsync(locality);
-        await _mySqlDbContext.SaveChangesAsync();
+        _unitOfWork.LocalityRepository.Add(locality);
+        await _unitOfWork.SaveChangesAsync();
 
         return locality.ToDto();
     }
 
     public async Task<LocalityDto> UpdateAsync(int id, LocalityDto localityDto)
     {
-        var dbIbge = _dbSet.Single(locality => locality.Id == id);
+        var dbLocality = await _unitOfWork.LocalityRepository.FindByIdAsync(id);
         
-        _dbSet.Update(dbIbge);
-        await _mySqlDbContext.SaveChangesAsync();
-        
-        return dbIbge.ToDto();
+        dbLocality.Update(localityDto);
+        _unitOfWork.LocalityRepository.Update(dbLocality);
+        await _unitOfWork.SaveChangesAsync();
+
+        return dbLocality.ToDto();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var dbIbge = _mySqlDbContext.Localities.Single(locality => locality.Id == id);
+        var dbIbge = await _unitOfWork.LocalityRepository.FindByIdAsync(id);
 
-        _dbSet.Remove(dbIbge);
-        await _mySqlDbContext.SaveChangesAsync();
+        _unitOfWork.LocalityRepository.Delete(dbIbge);
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<LocalityDto?> GetByIdAsync(int id)
     {
-        var dbIbge = await _dbSet.FirstOrDefaultAsync(locality => locality.Id == id);
+        var dbIbge = await _unitOfWork.LocalityRepository.GetByIdAsync(id);
         return dbIbge?.ToDto();
     }
 
     public async Task<List<LocalityDto>> GetAllAsync(string? filter)
     {
-        var dbIbges = await _dbSet
-            .Where(x =>
+        var dbLocalities = await _unitOfWork.LocalityRepository
+            .GetAllAsync(locality =>
                 filter == null ||
-                (x.IbgeCode.ToString().Contains(filter) ||
-                 x.City.Contains(filter) ||
-                 x.UF.Contains(filter)))
-            .ToListAsync();
+                (locality.IbgeCode.ToString().Contains(filter) ||
+                 locality.City.Contains(filter) ||
+                 locality.UF.Contains(filter)));
 
-        return dbIbges
-            .Select(dbIbge => dbIbge.ToDto())
+        return dbLocalities
+            .Select(dbLocality => dbLocality.ToDto())
             .ToList();
     }
 
@@ -131,7 +130,7 @@ public class LocalityService : ILocalityService
 
             var localityDto = new LocalityDto()
             {
-                Code = int.Parse(ibgeCode),
+                IbgeCode = int.Parse(ibgeCode),
                 City = cityName,
                 UF = uf
             };
@@ -149,16 +148,16 @@ public class LocalityService : ILocalityService
             }
         }
 
-        var dbIbges = await _dbSet.ToListAsync();
+        var dbIbges = await _unitOfWork.LocalityRepository.GetAllAsync();
         _logger.LogInformation("Current total IBGE's in database: {CurrentTotalIbgesInDb}", dbIbges.Count);
 
         var dbIbgeCodes = dbIbges.Select(x => x.IbgeCode);
-        var dtoIbgeCodes = localityDtos.Select(x => x.Code);
+        var dtoIbgeCodes = localityDtos.Select(x => x.IbgeCode);
         var ibgeCodesToRemove = dbIbgeCodes.Intersect(dtoIbgeCodes).ToList();
         var ignoredCount = ibgeCodesToRemove.Count();
 
         localityDtos.RemoveAll(ibgeDto =>
-            ibgeCodesToRemove.Any(code => ibgeDto.Code == code)); // Remove existents ibges in database
+            ibgeCodesToRemove.Any(code => ibgeDto.IbgeCode == code)); // Remove existents ibges in database
         _logger.LogInformation(
             "Total IBGE's ignored because already exists in database: {TotalIgnoredIbgesThatAlreadyExistsInDb}",
             ignoredCount);
@@ -168,7 +167,7 @@ public class LocalityService : ILocalityService
 
         var sw = new Stopwatch();
         sw.Start();
-        await _mySqlDbContext.BulkInsertAsync(ibges);
+        await _unitOfWork.LocalityRepository.BulkInsertAsync(ibges);
         sw.Stop();
 
         _logger.LogInformation("Total localities failed to import: {TotalLocalityFailCount}",
@@ -184,12 +183,5 @@ public class LocalityService : ILocalityService
             FailedCount = localityFailedToImportDtos.Count,
             FailedLocalities = localityFailedToImportDtos
         };
-    }
-
-
-    private async Task InitDbOperation(Action act)
-    {
-        act.Invoke();
-        await _mySqlDbContext.SaveChangesAsync();
     }
 }

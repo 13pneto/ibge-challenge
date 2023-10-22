@@ -1,5 +1,6 @@
 using challenge.ibge.authentication.Dtos;
 using challenge.ibge.authentication.Services;
+using challenge.ibge.authentication.Services.Interfaces;
 using challenge.ibge.infra.data.Services.Interfaces;
 using challenge.ibge.web.api.Middlewares;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,8 @@ public static class AuthenticationEndpoints
     public static void MapAuthenticationEndpoints(this IEndpointRouteBuilder endpoints)
     {
         endpoints.MapPost("/v1/authentication/login",
-                async ([FromServices] IUserService userService, LoginDto loginDto) =>
+                async ([FromServices] IUserService userService, [FromServices] ITokenService tokenService,
+                    LoginDto loginDto) =>
                 {
                     var authenticateUserDto = await userService.AuthenticateAsync(loginDto.Email, loginDto.Password);
                     if (authenticateUserDto is null)
@@ -20,7 +22,7 @@ public static class AuthenticationEndpoints
                         return Results.BadRequest("Usuário/senha inválido(s)");
                     }
                     
-                    return Results.Ok(TokenService.GenerateToken(authenticateUserDto));
+                    return Results.Ok(tokenService.Generate(authenticateUserDto));
                 })
             .AllowAnonymous()
             .WithMetadata(new SwaggerOperationAttribute()
