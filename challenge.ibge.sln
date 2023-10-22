@@ -9,15 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - web api", "1 - web api"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge.ibge.web.api", "challenge.ibge.web.api\challenge.ibge.web.api.csproj", "{81C60416-4615-4CC6-B7E5-84555274A8E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - infra", "2 - infra", "{4311EEF6-A094-465C-9C29-D235718038DD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - infra", "3 - infra", "{4311EEF6-A094-465C-9C29-D235718038DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge.ibge.infra.data", "challenge.ibge.infra.data\challenge.ibge.infra.data.csproj", "{B9A0B9B5-CD56-4BC3-A782-682BB89F679E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge.ibge.authentication", "challenge.ibge.authentication\challenge.ibge.authentication.csproj", "{E3EF9C8C-C86B-48C6-84DF-F76DE6FE339A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - tests", "3 - tests", "{76455D74-7823-47F0-8E09-459B967085BB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - tests", "4 - tests", "{76455D74-7823-47F0-8E09-459B967085BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge.ibge.tests", "challenge.ibge.tests\challenge.ibge.tests.csproj", "{EBF5E7EC-2287-4179-B15E-948805B7E5F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - core", "2 - core", "{4A296F5B-FEE3-49BA-A056-270D4BD979A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "challenge.ibge.core", "challenge.ibge.core\challenge.ibge.core.csproj", "{2E96AA86-9201-4C38-9A42-6F45F3512DCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{EBF5E7EC-2287-4179-B15E-948805B7E5F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBF5E7EC-2287-4179-B15E-948805B7E5F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBF5E7EC-2287-4179-B15E-948805B7E5F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E96AA86-9201-4C38-9A42-6F45F3512DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E96AA86-9201-4C38-9A42-6F45F3512DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E96AA86-9201-4C38-9A42-6F45F3512DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E96AA86-9201-4C38-9A42-6F45F3512DCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +61,7 @@ Global
 		{E3EF9C8C-C86B-48C6-84DF-F76DE6FE339A} = {078FA2C4-1903-4FB2-BBC9-86745E9CDC6E}
 		{76455D74-7823-47F0-8E09-459B967085BB} = {8AC3CE2C-0E7A-4690-BFA0-8A7FACE220DF}
 		{EBF5E7EC-2287-4179-B15E-948805B7E5F1} = {76455D74-7823-47F0-8E09-459B967085BB}
+		{4A296F5B-FEE3-49BA-A056-270D4BD979A3} = {8AC3CE2C-0E7A-4690-BFA0-8A7FACE220DF}
+		{2E96AA86-9201-4C38-9A42-6F45F3512DCD} = {4A296F5B-FEE3-49BA-A056-270D4BD979A3}
 	EndGlobalSection
 EndGlobal

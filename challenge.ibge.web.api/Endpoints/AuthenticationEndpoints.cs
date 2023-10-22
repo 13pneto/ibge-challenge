@@ -1,7 +1,6 @@
 using challenge.ibge.authentication.Dtos;
-using challenge.ibge.authentication.Services;
 using challenge.ibge.authentication.Services.Interfaces;
-using challenge.ibge.infra.data.Services.Interfaces;
+using challenge.ibge.core.Services.Interfaces;
 using challenge.ibge.web.api.Middlewares;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

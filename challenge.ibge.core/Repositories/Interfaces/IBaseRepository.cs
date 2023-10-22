@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace challenge.ibge.infra.data.Repositories.Interfaces;
+namespace challenge.ibge.core.Repositories.Interfaces;
 
 public interface IBaseRepository<T>
 {
@@ -9,6 +9,6 @@ public interface IBaseRepository<T>
     void Delete(T user);
     Task<T?> GetByIdAsync(int id);
     Task<T> FindByIdAsync(int id);
-    Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter = null);
+    Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null);
     Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> filter = null);
 }

@@ -1,7 +1,7 @@
-﻿using challenge.ibge.infra.data.Dtos;
+﻿using challenge.ibge.core.Dtos;
 using Microsoft.AspNetCore.Http;
 
-namespace challenge.ibge.infra.data.Services.Interfaces;
+namespace challenge.ibge.core.Services.Interfaces;
 
 public interface ILocalityService
 {

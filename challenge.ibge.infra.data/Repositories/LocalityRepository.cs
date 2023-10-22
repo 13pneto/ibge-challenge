@@ -1,5 +1,5 @@
-using challenge.ibge.infra.data.Entities;
-using challenge.ibge.infra.data.Repositories.Interfaces;
+using challenge.ibge.core.Entities;
+using challenge.ibge.core.Repositories.Interfaces;
 using EFCore.BulkExtensions;
 
 namespace challenge.ibge.infra.data.Repositories;

@@ -1,6 +1,6 @@
-using challenge.ibge.infra.data.Entities;
+using challenge.ibge.core.Entities;
 
-namespace challenge.ibge.infra.data.Repositories.Interfaces;
+namespace challenge.ibge.core.Repositories.Interfaces;
 
 public interface ILocalityRepository : IBaseRepository<Locality>
 {

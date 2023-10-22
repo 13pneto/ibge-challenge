@@ -1,6 +1,6 @@
-using challenge.ibge.infra.data.Services.Interfaces;
+using challenge.ibge.core.Services.Interfaces;
 
-namespace challenge.ibge.infra.data.Services;
+namespace challenge.ibge.core.Services;
 
 public class EncryptPasswordService : IEncryptPasswordService
 {

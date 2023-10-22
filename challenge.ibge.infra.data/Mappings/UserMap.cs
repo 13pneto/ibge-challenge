@@ -1,4 +1,4 @@
-using challenge.ibge.infra.data.Entities;
+using challenge.ibge.core.Entities;
 using challenge.ibge.infra.data.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

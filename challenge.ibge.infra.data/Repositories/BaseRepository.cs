@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
-using challenge.ibge.infra.data.Entities;
-using challenge.ibge.infra.data.Repositories.Interfaces;
+using challenge.ibge.core.Entities;
+using challenge.ibge.core.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace challenge.ibge.infra.data.Repositories;
@@ -45,13 +45,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T: BaseEntity
         return dbUser;
     }
 
-    public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter = null)
+    public Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null)
     {
-        var dbEntities = _dbSet.Where(filter).ToListAsync();
-        return dbEntities;
+        return filter is null ? _dbSet.ToListAsync() : _dbSet.Where(filter).ToListAsync();
     }
 
-    public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> filter = null)
+    public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> filter)
     {
         return _dbSet.FirstOrDefaultAsync(filter);
     }

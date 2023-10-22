@@ -1,4 +1,4 @@
-﻿namespace challenge.ibge.infra.data.Entities;
+﻿namespace challenge.ibge.core.Entities;
 
 public abstract class BaseEntity
 {

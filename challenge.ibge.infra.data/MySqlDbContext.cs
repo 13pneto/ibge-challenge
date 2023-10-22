@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using challenge.ibge.infra.data.Entities;
+using challenge.ibge.core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace challenge.ibge.infra.data;

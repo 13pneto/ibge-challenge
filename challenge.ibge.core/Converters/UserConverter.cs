@@ -1,7 +1,7 @@
 ﻿using challenge.ibge.authentication.Dtos;
-using challenge.ibge.infra.data.Entities;
+using challenge.ibge.core.Entities;
 
-namespace challenge.ibge.infra.data.Converters;
+namespace challenge.ibge.core.Converters;
 
 public static class UserConverter
 {

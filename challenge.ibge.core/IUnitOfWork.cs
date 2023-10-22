@@ -1,6 +1,6 @@
-using challenge.ibge.infra.data.Repositories.Interfaces;
+using challenge.ibge.core.Repositories.Interfaces;
 
-namespace challenge.ibge.infra.data.UnitOfWork.Interfaces;
+namespace challenge.ibge.core;
 
 public interface IUnitOfWork
 {

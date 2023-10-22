@@ -1,4 +1,4 @@
-﻿namespace challenge.ibge.infra.data.Dtos;
+﻿namespace challenge.ibge.core.Dtos;
 
 public class LocalityDto
 {

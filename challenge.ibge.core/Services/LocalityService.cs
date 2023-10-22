@@ -1,17 +1,14 @@
 ﻿using System.Diagnostics;
-using challenge.ibge.infra.data.Converters;
-using challenge.ibge.infra.data.Dtos;
-using challenge.ibge.infra.data.Entities;
-using challenge.ibge.infra.data.Services.Interfaces;
-using challenge.ibge.infra.data.UnitOfWork.Interfaces;
-using EFCore.BulkExtensions;
+using challenge.ibge.core.Converters;
+using challenge.ibge.core.Dtos;
+using challenge.ibge.core.Entities;
+using challenge.ibge.core.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 
-namespace challenge.ibge.infra.data.Services;
+namespace challenge.ibge.core.Services;
 
 public class LocalityService : ILocalityService
 {
@@ -31,10 +28,17 @@ public class LocalityService : ILocalityService
     {
         var locality = new Locality(localityDto);
 
-        _unitOfWork.LocalityRepository.Add(locality);
-        await _unitOfWork.SaveChangesAsync();
+        var localityValidationResultDto = await _localityValidationService.Validate(localityDto);
 
-        return locality.ToDto();
+        if (localityValidationResultDto.IsValid)
+        {
+            _unitOfWork.LocalityRepository.Add(locality);
+            await _unitOfWork.SaveChangesAsync();
+
+            return locality.ToDto();
+        }
+
+        throw new Exception("A localização informada não é válida. Consulte a documentação");
     }
 
     public async Task<LocalityDto> UpdateAsync(int id, LocalityDto localityDto)
@@ -135,7 +139,7 @@ public class LocalityService : ILocalityService
                 UF = uf
             };
 
-            var localityValidationResultDto = await _localityValidationService.ValidateCanImport(localityDto);
+            var localityValidationResultDto = await _localityValidationService.Validate(localityDto);
 
             if (localityValidationResultDto.IsValid)
             {

@@ -1,6 +1,6 @@
 using AutoFixture;
 
-namespace TestProject1;
+namespace challenge.ibge.tests;
 
 public class BaseTest
 {

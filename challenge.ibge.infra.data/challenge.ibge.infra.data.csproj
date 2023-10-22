@@ -29,14 +29,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\challenge.ibge.authentication\challenge.ibge.authentication.csproj" />
-
-
+      <ProjectReference Include="..\challenge.ibge.core\challenge.ibge.core.csproj" />
     </ItemGroup>
 
-
-
-
-
-
-
+    <ItemGroup>
+        <Folder Include="Repositories\Interfaces\" />
+    </ItemGroup>
 </Project>

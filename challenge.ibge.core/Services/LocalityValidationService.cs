@@ -1,15 +1,15 @@
 using System.Text.RegularExpressions;
-using challenge.ibge.infra.data.Dtos;
-using challenge.ibge.infra.data.Services.Interfaces;
+using challenge.ibge.core.Dtos;
+using challenge.ibge.core.Services.Interfaces;
 
-namespace challenge.ibge.infra.data.Services;
+namespace challenge.ibge.core.Services;
 
 public class LocalityValidationService : ILocalityValidationService
 {
-    public async Task<LocalityValidationResultDto> ValidateCanImport(LocalityDto localityDto)
+    public async Task<LocalityValidationResultDto> Validate(LocalityDto localityDto)
     {
         var isValidUf = localityDto.UF?.Length == 2;
-        var isValidCity = Regex.IsMatch(localityDto.City ?? "", "^(?=\\p{L}{3,})([-\\\"' \\p{L}]+?)+$");
+        var isValidCity = Regex.IsMatch(localityDto.City ?? "", "^(?=\\p{L}{2,})([-\\\"' \\p{L}]+?)+$");
         var isValidIbgeCode = Regex.IsMatch(localityDto.IbgeCode.ToString(), "^[0-9]{7}$");
 
         LocalityValidationResultDto localityValidationResultDto = new()

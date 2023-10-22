@@ -1,7 +1,7 @@
 using challenge.ibge.authentication;
 using challenge.ibge.authentication.Dtos;
 
-namespace challenge.ibge.infra.data.Entities;
+namespace challenge.ibge.core.Entities;
 
 public class User : BaseEntity
 {

@@ -1,6 +1,6 @@
-﻿using challenge.ibge.infra.data.Services;
-using challenge.ibge.infra.data.Services.Interfaces;
-using challenge.ibge.infra.data.UnitOfWork.Interfaces;
+﻿using challenge.ibge.core;
+using challenge.ibge.core.Services;
+using challenge.ibge.core.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace challenge.ibge.infra.data.Extensions;

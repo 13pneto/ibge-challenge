@@ -1,11 +1,9 @@
 using challenge.ibge.authentication.Dtos;
-using challenge.ibge.infra.data.Converters;
-using challenge.ibge.infra.data.Entities;
-using challenge.ibge.infra.data.Services.Interfaces;
-using challenge.ibge.infra.data.UnitOfWork.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using challenge.ibge.core.Converters;
+using challenge.ibge.core.Entities;
+using challenge.ibge.core.Services.Interfaces;
 
-namespace challenge.ibge.infra.data.Services;
+namespace challenge.ibge.core.Services;
 
 public class UserService : IUserService
 {

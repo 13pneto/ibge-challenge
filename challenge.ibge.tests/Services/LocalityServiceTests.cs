@@ -1,18 +1,15 @@
 ﻿using System.Linq.Expressions;
 using AutoFixture;
-using challenge.ibge.authentication.Dtos;
-using challenge.ibge.infra.data;
-using challenge.ibge.infra.data.Dtos;
-using challenge.ibge.infra.data.Entities;
-using challenge.ibge.infra.data.Services;
-using challenge.ibge.infra.data.Services.Interfaces;
-using challenge.ibge.infra.data.UnitOfWork.Interfaces;
+using challenge.ibge.core;
+using challenge.ibge.core.Dtos;
+using challenge.ibge.core.Entities;
+using challenge.ibge.core.Services;
+using challenge.ibge.core.Services.Interfaces;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace TestProject1.Services;
+namespace challenge.ibge.tests.Services;
 
 public class LocalityServiceTests : BaseTest, IDisposable
 {

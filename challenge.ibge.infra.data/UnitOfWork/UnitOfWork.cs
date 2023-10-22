@@ -1,6 +1,6 @@
+using challenge.ibge.core;
+using challenge.ibge.core.Repositories.Interfaces;
 using challenge.ibge.infra.data.Repositories;
-using challenge.ibge.infra.data.Repositories.Interfaces;
-using challenge.ibge.infra.data.UnitOfWork.Interfaces;
 
 namespace challenge.ibge.infra.data.UnitOfWork;
 

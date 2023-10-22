@@ -1,18 +1,8 @@
-﻿using AutoFixture;
-using challenge.ibge.authentication.Dtos;
-using challenge.ibge.authentication.Services;
-using challenge.ibge.infra.data;
-using challenge.ibge.infra.data.Dtos;
-using challenge.ibge.infra.data.Entities;
-using challenge.ibge.infra.data.Services;
-using challenge.ibge.infra.data.Services.Interfaces;
+﻿using challenge.ibge.core.Dtos;
+using challenge.ibge.core.Services;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit.Abstractions;
 
-namespace TestProject1.Services;
+namespace challenge.ibge.tests.Services;
 
 public class LocalityValidationServiceTests : BaseTest, IDisposable
 {
@@ -35,7 +25,7 @@ public class LocalityValidationServiceTests : BaseTest, IDisposable
         };
         
         //Action
-        var result = await _localityValidationService.ValidateCanImport(localityDto);
+        var result = await _localityValidationService.Validate(localityDto);
 
         //Assert
         result.IsValid.Should().BeTrue();
@@ -56,7 +46,7 @@ public class LocalityValidationServiceTests : BaseTest, IDisposable
         };
         
         //Action
-        var result = await _localityValidationService.ValidateCanImport(localityDto);
+        var result = await _localityValidationService.Validate(localityDto);
 
         //Assert
         result.IsValid.Should().BeFalse();
@@ -84,7 +74,7 @@ public class LocalityValidationServiceTests : BaseTest, IDisposable
         };
         
         //Action
-        var result = await _localityValidationService.ValidateCanImport(localityDto);
+        var result = await _localityValidationService.Validate(localityDto);
 
         //Assert
         result.IsValid.Should().BeFalse();
@@ -110,7 +100,7 @@ public class LocalityValidationServiceTests : BaseTest, IDisposable
         };
         
         //Action
-        var result = await _localityValidationService.ValidateCanImport(localityDto);
+        var result = await _localityValidationService.Validate(localityDto);
 
         //Assert
         result.IsValid.Should().BeFalse();
@@ -136,7 +126,7 @@ public class LocalityValidationServiceTests : BaseTest, IDisposable
         };
         
         //Action
-        var result = await _localityValidationService.ValidateCanImport(localityDto);
+        var result = await _localityValidationService.Validate(localityDto);
 
         //Assert
         result.IsValid.Should().BeFalse();
