@@ -79,6 +79,16 @@ builder.Services.AddAuthorization(x =>
         .Build();
 });
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -90,6 +100,8 @@ if (app.Environment.IsDevelopment())
         x.RoutePrefix = string.Empty;
     });
 }
+
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using challenge.ibge.core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace challenge.ibge.infra.data;
 
@@ -15,9 +16,11 @@ public class MySqlDbContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var connectionString =
+            "server=ibge-challenge.ddns.net;user=dev;password=dev;database=db_ibge_challenge;AllowLoadLocalInfile=true"; 
+        
         optionsBuilder
-            .UseMySql("server=localhost;user=dev;password=dev;database=db_ibge_challenge;AllowLoadLocalInfile=true",
-                ServerVersion.AutoDetect("server=localhost;user=dev2;password=dev2;database=db_ibge_challenge"));
+            .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
