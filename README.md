@@ -5,7 +5,7 @@ Este é um projeto em .NET 7.0 criado como parte do Desafio do Balta.io. O objet
 
 A importação com arquivo .XLS retorna um objeto contendo informações de quantos registros foram criados, ignorados e uma lista com as localizações que tiveram erro, assim como os campos inválidos e a linha do arquivo que está o erro, neste formato:
 
-{
+`{
   "elapsed": 00:00:xx,
   "createdCount": 0,
   "ignoredCount": 0,
@@ -25,6 +25,6 @@ A importação com arquivo .XLS retorna um objeto contendo informações de quan
       ]
     }
   ]
-}
+}`
 
 **Documentação swagger: http://ibge-challenge.ddns.net**
